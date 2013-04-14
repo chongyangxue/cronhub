@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+	
+<struts>
+	<package name="process" namespace="/process" extends="json-default">
+		<action name="process_add" class="processAddAction" method="addProcess">
+			<result name="success" type="redirect">process_first_page_view.action?max_per_page=20</result>
+		</action>
+		<action name="process_task_add" class="processAddAction" method="addProcessTask">
+			<result name="success" type="redirect">process_first_page_view.action?max_per_page=20</result>
+		</action>
+		<action name="process_task_view" class="processViewAction" method="goProcessTaskView">
+			<result name="success">/page/cronhub_task/ProcessTaskView.jsp</result>
+		</action>
+		<action name="process_first_page_view" class="processViewAction" method="findFirstPage">
+			<result name="success">/page/cronhub_task/ProcessView.jsp</result>
+		</action>
+		<action name="process_next_page_view" class="processViewAction" method="findNextPageNo">
+			<result name="success" >/page/cronhub_task/ProcessView.jsp</result>
+		</action>
+		<action name="process_prev_page_view" class="processViewAction" method="findPrevPageNo">
+			<result name="success" >/page/cronhub_task/ProcessView.jsp</result>
+		</action>
+		<action name="process_last_page_view" class="processViewAction" method="findLastPage">
+			<result name="success" >/page/cronhub_task/ProcessView.jsp</result>
+		</action>
+		<action name="getPreTaskId" class="processAddAction" method="getPreTaskId">
+			<result name="success" type="json"/>
+		</action>
+		<action name="deleteProcess" class="processViewAction" method="deleteOneById"></action>
+		<action name="remoteExec" class="immediateRemoteExecAction" method="remoteExecuteProcess"></action>
+	</package>
+</struts>

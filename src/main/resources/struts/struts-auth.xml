@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+	
+<struts>
+	<package name="auth" extends="interceptors">
+		<action name="loginAction" class="loginAction" method="loginCheck">
+			<result name="success">/main.jsp</result>
+			<result name="error">/index.jsp</result>
+		</action>
+		<action name="logoutAction" class="loginAction" method="logout">
+			<result name="success">/index.jsp</result>
+		</action>
+		<action name="listLog" class="loginAction" method="listLoginLog">
+			<result name="success">/page/commons/LogList.jsp</result>
+		</action>
+		<action name="addAuthUser" class="userAction" method="addUser">
+			<result name="success" type="chain">listUser</result>
+			<result name="error">/page/commons/userAdd.jsp</result>
+		</action>
+		<action name="listUser" class="userAction" method="listUser">
+			<result name="success">/page/commons/userList.jsp</result>
+		</action>
+		<action name="deleteUser" class="userAction" method="deleteUser"/>
+	</package>
+</struts>

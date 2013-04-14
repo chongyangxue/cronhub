@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"  
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${db.jdbcurl}"/>
+		<property name="username" value="${db.username}"/>
+		<property name="password" value="${db.password}"/>
+		<property name="maxIdle" value="30"/>
+		<property name="minIdle" value="5"/>
+		<property name="maxWait" value="60000"/>
+		<property name="testWhileIdle" value="true"/>
+		<property name="timeBetweenEvictionRunsMillis" value="10000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+	</bean> -->
+	
+	<!-- c3p0 data source -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="${db.jdbcurl}" />
+		<property name="user" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+		<property name="initialPoolSize" value="10" />
+		<property name="minPoolSize" value="5" />
+		<property name="maxPoolSize" value="30" />
+		<property name="acquireIncrement" value="10" />
+		<property name="maxIdleTime" value="10" />
+		<property name="maxStatements" value="0" />
+		<property name="testConnectionOnCheckout" value="true"/>
+		<property name="idleConnectionTestPeriod" value="18000"/>
+		<property name="preferredTestQuery" value="select 1"/>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+		<property name="dataSource">  
+			<ref local="dataSource" />  
+		</property>  
+	</bean>  
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+	</bean>
+</beans>
